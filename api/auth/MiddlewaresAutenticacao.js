@@ -8,11 +8,13 @@ class MiddlewaresAutenticacao {
             'local',
             {session: false},
             (erro, usuario, info) => {
-            
-                if (erro.message == 'Usuario não encontrado' || erro.message == 'Email e/ou senha inválidos.'){
-                return res.status(401).json({erro: erro.message})
-                }else if(erro){
-                    return res.status(500).json({erro: erro.message});
+
+                if(erro){
+                    if (erro.message == 'Usuario não encontrado' || erro.message == 'Email e/ou senha inválidos.'){
+                        return res.status(401).json({erro: erro.message})
+                    }else {
+                        return res.status(500).json({erro: erro.message});
+                    }
                 }
 
                 if(!usuario) {

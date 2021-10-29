@@ -59,6 +59,12 @@ class Helpers {
         }
 
     }
+
+    static isNull(valor, msg){
+        if (!valor) throw new Error(msg)
+        if (Array.isArray(valor) && valor.length === 0) throw new Error(msg)
+        if (typeof valor === 'string' && !valor.trim()) throw new Error(msg)
+    }
 }
 
 module.exports = Helpers;

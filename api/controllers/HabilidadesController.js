@@ -12,7 +12,6 @@ class HabilidadeController {
     async criarHabilidade(req, res){
         const novaHabilidade = {...req.body}
 
-
         try {
             Helpers.verificaHabilidadeCorreta(novaHabilidade)
             await database.habilidades.create(novaHabilidade)
