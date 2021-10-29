@@ -14,14 +14,15 @@ class HabilidadeController {
         try {
             const dev = await database.habilidades_devs.findAll({where: {id_dev: parseInt(req.params.id)}});
             try {
-                isNull(dev, "Usuario não encontrado.");
+                isNull(dev, "Usuario não encontrado ou não possui habilidades.");
             } catch (error) {
-                res.status(404).json({erro: error.message})
+                return res.status(404).json({erro: error.message})
             }
             res.status(200).json(dev);
         } catch (err) {
             res.status(500).json({ erro: err.message })
         }
+
     }
 
     async addHabilidadeDev(req, res) {

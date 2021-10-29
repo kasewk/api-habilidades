@@ -15,9 +15,24 @@ class UsuarioController {
             return;
         }
 
+        let arrayUsers = [];
         await database.usuarios.findAll()
-            .then(usuarios => res.status(200).json(usuarios))
-            .catch(err => res.status(500).json(err.message))
+            .then(users => {
+                arrayUsers = users.map(async user => {
+                    let hab = await this.getUserHabilidades(user.id)
+                    return {
+                        id: user.id,
+                        cargo: user.cargo,
+                        role: user.role,
+                        email: user.email,
+                        habilidades: hab
+                    }
+                })
+            }).catch(err => console.log(err.message))
+        
+        Promise.all(arrayUsers)
+            .then(resposta => res.status(200).json(resposta))
+            .catch(err => res.status(500).json({erro: err.message}))
         
     }
 
