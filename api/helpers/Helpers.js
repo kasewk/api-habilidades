@@ -25,9 +25,6 @@ class Helpers {
         if(!senha){
             erros.push('Senha Inválida.');
         }
-        if (!role){
-            erros.push('Role Inválida.');
-        }
 
         if(erros.length > 0){
             throw new Error(`Erro: ${erros.join(" ")}`)

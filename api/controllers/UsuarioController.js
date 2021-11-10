@@ -22,6 +22,7 @@ class UsuarioController {
                     let hab = await this.getUserHabilidades(user.id)
                     return {
                         id: user.id,
+                        nome: user.nome,
                         cargo: user.cargo,
                         role: user.role,
                         email: user.email,
@@ -65,6 +66,9 @@ class UsuarioController {
         const usuario = {...req.body}
         try {
             verificaUsuarioCorreto(usuario);
+            if(!usuario.role){
+                usuario.role = "dev";
+            }
             let senha = usuario.senha;
             let salt = await bcrypt.genSalt();
             await bcrypt.hash(senha, salt).then(senhaHash => usuario.senha = senhaHash)
