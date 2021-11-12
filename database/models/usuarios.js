@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
   usuarios.init({
     nome: DataTypes.STRING,
     cargo: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      unique: true
+    },
     senha: DataTypes.STRING,
     role: DataTypes.ENUM('dev', 'gestor'),
     codigo_temp: DataTypes.STRING

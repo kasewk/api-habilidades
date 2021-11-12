@@ -27,26 +27,30 @@ module.exports = app => {
         .post(MiddlewaresAutenticacao.local, UsuarioController.login)
 
     app.route('/usuarios')
-        //.all(MiddlewaresAutenticacao.bearer)
-        .get(UsuarioController.getUsuarios)
+        .get(MiddlewaresAutenticacao.bearer, UsuarioController.getUsuarios)
         .post(UsuarioController.criarUsuario)
 
+    app.post('/usuarios/gestor', UsuarioController.criarUsuario)
+
     app.route('/usuarios/:id/habilidades')
-        //.all(MiddlewaresAutenticacao.bearer)
+        .all(MiddlewaresAutenticacao.bearer)
         .get(HabilidadesDevsController.getHabilidadeDevPorId)
         .post(HabilidadesDevsController.addHabilidadeDev)
     
     app.route('/usuarios/:id/habilidades/:idHabilidade')
-        //.all(MiddlewaresAutenticacao.bearer)
+        .all(MiddlewaresAutenticacao.bearer)
         .delete(HabilidadesDevsController.deletaHabilidadeDev)
 
+    app.route('/emailcadastrado')
+        .get(UsuarioController.emailCadastrado)
+
     app.route('/habilidades')
-        //.all(MiddlewaresAutenticacao.bearer)
+        .all(MiddlewaresAutenticacao.bearer)
         .get(HabilidadesController.getHabilidades)
         .post(HabilidadesController.criarHabilidade)
     
     app.route('/habilidades/devs')
-        //.all(MiddlewaresAutenticacao.bearer)
+        .all(MiddlewaresAutenticacao.bearer)
         .get(HabilidadesDevsController.getHabilidadesDevs)
 
 

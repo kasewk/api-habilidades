@@ -66,7 +66,8 @@ class UsuarioController {
         const usuario = {...req.body}
         try {
             verificaUsuarioCorreto(usuario);
-            if(!usuario.role){
+            if(req.url === '/usuarios/' || !usuario.role){
+                console.log("Fui chamado")
                 usuario.role = "dev";
             }
             let senha = usuario.senha;
@@ -80,6 +81,19 @@ class UsuarioController {
             res.status(400).json({erro: err['message']});
         }
     }
+    
+    async emailCadastrado(req, res){
+        const email = req.query.email;
+        await database.usuarios.findOne({where: {email}})
+            .then((usuario) => {
+                if(usuario){
+                    res.status(200).json({emailCadastrado: true})
+                }else{
+                    res.status(200).json({ emailCadastrado: false })
+                }
+            })
+            .catch(err => res.status(500).json({emailCadastrado: false}))
+    }
 
     async buscaPorEmail(valorEmail){
         const usuario = await database.usuarios.findOne({ where: { email: valorEmail}});
@@ -92,6 +106,7 @@ class UsuarioController {
         isNull(usuario, 'Usuario não encontrado.');
         return usuario
     }
+
 
     login(req, res) {
         const token = geraToken(req.user);
