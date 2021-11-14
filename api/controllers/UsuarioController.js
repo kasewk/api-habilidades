@@ -67,7 +67,6 @@ class UsuarioController {
         try {
             verificaUsuarioCorreto(usuario);
             if(req.url === '/usuarios/' || !usuario.role){
-                console.log("Fui chamado")
                 usuario.role = "dev";
             }
             let senha = usuario.senha;
