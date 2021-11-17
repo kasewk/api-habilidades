@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       habilidades.hasMany(models.habilidades_devs, {foreignKey: "id_habilidade"});
+      // habilidades.belongsToMany(models.usuarios, {through: models.habilidades_devs});
     }
   };
   habilidades.init({

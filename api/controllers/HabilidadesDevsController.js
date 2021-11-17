@@ -12,13 +12,51 @@ class HabilidadeController {
     async getHabilidadeDevPorId(req, res) {
 
         try {
-            const dev = await database.habilidades_devs.findAll({where: {id_dev: parseInt(req.params.id)}});
+            // const dev = await database.habilidades_devs.findAll({where: {id_dev: parseInt(req.params.id)}});
+            const dev = await database.habilidades_devs.findAll({
+                where: {id_dev: parseInt(req.params.id)}, 
+                include: [
+                    {model: database.usuarios}, 
+                    {model: database.habilidades}
+                ]
+            });
+            
+            
             try {
                 isNull(dev, "Usuario não encontrado ou não possui habilidades.");
             } catch (error) {
-                return res.status(404).json({erro: error.message})
+                await database.usuarios.findOne({where: {id: req.params.id}, attributes: ['id', 'cargo', 'nome', 'email']})
+                    .then(user => {
+                        console.log(user)
+                        res.status(206).json({
+                            id: user.id,
+                            cargo: user.cargo,
+                            nome: user.nome,
+                            email: user.email,
+                            habilidades: []
+                        })
+                    }).catch(err => res.status(500).json())
+                
+                return;
             }
-            res.status(200).json(dev);
+            let devFormatado = {
+                
+                id: dev[0].usuario.id,
+                nome: dev[0].usuario.nome,
+                cargo: dev[0].usuario.cargo,
+                email: dev[0].usuario.email,
+                habilidades: 
+                    dev.map(({habilidade, nivel}) => {
+                        return {
+                            nivel,
+                            nome: habilidade.nome,
+                            descricao: habilidade.descricao
+                        }
+                    })
+                
+            }
+            delete devFormatado.senha
+            res.status(200).json(devFormatado);
         } catch (err) {
             res.status(500).json({ erro: err.message })
         }
