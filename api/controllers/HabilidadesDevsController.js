@@ -18,6 +18,12 @@ class HabilidadeController {
                 include: [
                     {model: database.usuarios}, 
                     {model: database.habilidades}
+                ],
+                order: [
+                  // ...we use the same syntax from the include
+                  // in the beginning of the order array
+                  ['nivel', 'DESC'],
+                  [database.habilidades, 'nome', 'ASC']
                 ]
             });
             

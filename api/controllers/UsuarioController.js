@@ -16,24 +16,49 @@ class UsuarioController {
         }
 
         let arrayUsers = [];
-        await database.usuarios.findAll()
-            .then(users => {
-                arrayUsers = users.map(async user => {
-                    let hab = await this.getUserHabilidades(user.id)
-                    return {
-                        id: user.id,
-                        nome: user.nome,
-                        cargo: user.cargo,
-                        role: user.role,
-                        email: user.email,
-                        habilidades: hab
-                    }
-                })
-            }).catch(err => console.log(err.message))
+        
+        if(req.query.page){
+            await database.usuarios.findAll({ offset: (parseInt(req.query.page) * 12) - 12, limit: 12, attributes: ['id', 'nome', 'cargo', 'email'], include: [database.habilidades_devs], order: [['nome', 'ASC']] })
+                .then(users => {
+                    arrayUsers = users.map(async user => {
+                        let hab = await this.getUserHabilidades(user.id)
+                        return {
+                            id: user.id,
+                            nome: user.nome,
+                            cargo: user.cargo,
+                            role: user.role,
+                            email: user.email,
+                            habilidades: hab
+                        }
+                    })
+                }).catch(err => console.log(err.message))
         
         Promise.all(arrayUsers)
             .then(resposta => res.status(200).json(resposta))
             .catch(err => res.status(500).json({erro: err.message}))
+        }else{
+            
+            await database.usuarios.findAll({order: [['nome', 'ASC']]})
+                .then(users => {
+                    console.log(users)
+                    arrayUsers = users.map(async user => {
+                        let hab = await this.getUserHabilidades(user.id)
+                        return {
+                            id: user.id,
+                            nome: user.nome,
+                            cargo: user.cargo,
+                            role: user.role,
+                            email: user.email,
+                            habilidades: hab
+                        }
+                    })
+                }).catch(err => console.log(err.message))
+            
+            Promise.all(arrayUsers)
+                .then(resposta => res.status(200).json(resposta))
+                .catch(err => res.status(500).json({erro: err.message}))
+        }
+
         
     }
 
@@ -119,7 +144,8 @@ class UsuarioController {
         await database.sequelize.query(`
             SELECT b.nome FROM habilidades b
             JOIN habilidades_devs a ON a.id_habilidade = b.id
-            WHERE a.id_dev = ${id};`,
+            WHERE a.id_dev = ${id}
+            ORDER BY a.nivel DESC, b.nome;`,
             { type: database.sequelize.QueryTypes.SELECT })
             .then(resultadoHabilidades => habilidades = resultadoHabilidades)
             .catch(err => console.log("Erro ao buscar habilidades"))
