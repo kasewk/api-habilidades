@@ -4,7 +4,7 @@ const Helpers = require('../helpers/Helpers');
 class HabilidadeController {
 
     async getHabilidades(req, res){
-        await database.habilidades.findAll()
+        await database.habilidades.findAll({order: [['nome', 'ASC']]})
             .then(habilidades => res.status(200).json(habilidades))
             .catch(err => res.status(500).json(err.message))
     }
