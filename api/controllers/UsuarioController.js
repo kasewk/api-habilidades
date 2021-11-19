@@ -4,6 +4,8 @@ const Helpers = require('../helpers/Helpers.js');
 const bcrypt = require('bcrypt');
 const geraToken = require('../auth/token');
 const { v4: uuidv4 } = require('uuid');
+const enviaEmail = require('../email/Email');
+
 class UsuarioController {
 
     getUsuarios = async(req, res) => {
@@ -127,7 +129,8 @@ class UsuarioController {
                 res.status(204).json();
                 const codigo = uuidv4().split('-')[0];
                 usuario.codigo_temp = codigo;
-                await usuario.save({fields: ['codigo_temp']})
+                usuario.save({fields: ['codigo_temp']}).catch(console.log)
+                enviaEmail(usuario.email, usuario.codigo_temp).catch(console.log)
             })
             .catch(err => res.status(500).json(err))
 
@@ -138,11 +141,11 @@ class UsuarioController {
 
         await database.usuarios.findOne({where: {email: dados.email}})
             .then(async usuario => {
-                if(usuario.codigo === dados.codigo_temp){
+                if(dados.codigo === usuario.codigo_temp){
                     res.status(204).json()
                     return;
                 }
-                res.status(400).json({erro: 'codigo invalido'})
+                res.status(200).json({erro: 'codigo invalido'})
             })
             .catch(err => res.status(500).json(err))
     }
