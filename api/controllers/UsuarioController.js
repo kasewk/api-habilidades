@@ -145,7 +145,7 @@ class UsuarioController {
                     res.status(204).json()
                     return;
                 }
-                res.status(200).json({erro: 'codigo invalido'})
+                res.status(400).json({erro: 'codigo invalido'})
             })
             .catch(err => res.status(500).json(err))
     }
@@ -157,6 +157,10 @@ class UsuarioController {
             .then(async usuario => {
                 if(!usuario.codigo_temp){
                     res.status(400).json();
+                    return;
+                }
+                if(dados.codigo != usuario.codigo_temp){
+                    res.status(400).json({erro: "código inválido"})
                     return;
                 }
                 let senhaHash = await this.criptografaSenha(dados.senha)
