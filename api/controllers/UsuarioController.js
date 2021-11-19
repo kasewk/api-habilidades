@@ -3,7 +3,7 @@ const { verificaUsuarioCorreto, isNull } = require('../helpers/Helpers.js');
 const Helpers = require('../helpers/Helpers.js');
 const bcrypt = require('bcrypt');
 const geraToken = require('../auth/token');
-
+const { v4: uuidv4 } = require('uuid');
 class UsuarioController {
 
     getUsuarios = async(req, res) => {
@@ -119,6 +119,53 @@ class UsuarioController {
             .catch(err => res.status(500).json({emailCadastrado: false}))
     }
 
+    async recuperarSenha(req, res){
+        const email = req.body.email;
+
+        await database.usuarios.findOne({where: {email}})
+            .then(async usuario => {
+                res.status(204).json();
+                const codigo = uuidv4().split('-')[0];
+                usuario.codigo_temp = codigo;
+                await usuario.save({fields: ['codigo_temp']})
+            })
+            .catch(err => res.status(500).json(err))
+
+    }
+
+    async verificarCodigoSenha(req, res){
+        const dados = {...req.body};
+
+        await database.usuarios.findOne({where: {email: dados.email}})
+            .then(async usuario => {
+                if(usuario.codigo === dados.codigo_temp){
+                    res.status(204).json()
+                    return;
+                }
+                res.status(400).json({erro: 'codigo invalido'})
+            })
+            .catch(err => res.status(500).json(err))
+    }
+
+    atualizarSenhaComCodigo = async (req, res) => {
+        const dados = {...req.body};
+
+        await database.usuarios.findOne({where: {email: dados.email}})
+            .then(async usuario => {
+                if(!usuario.codigo_temp){
+                    res.status(400).json();
+                    return;
+                }
+                let senhaHash = await this.criptografaSenha(dados.senha)
+                usuario.senha = senhaHash;
+                usuario.codigo_temp = null;
+                await usuario.save({fields: ['senha', 'codigo_temp']})
+                    .then(() => res.status(204).json())
+                    .catch(err => res.status(500).json(err))
+
+            }).catch(err => res.status(500).json())
+    }
+
     async buscaPorEmail(valorEmail){
         const usuario = await database.usuarios.findOne({ where: { email: valorEmail}});
         isNull(usuario, 'Usuario não encontrado.');
@@ -151,6 +198,11 @@ class UsuarioController {
             .catch(err => console.log("Erro ao buscar habilidades"))
 
         return habilidades.map(habilidade => habilidade.nome)
+    }
+
+    async criptografaSenha(senha){
+        let salt = await bcrypt.genSalt();
+        return await bcrypt.hash(senha, salt)
     }
 
 }

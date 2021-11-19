@@ -13,12 +13,6 @@ const corsOptions = {
 module.exports = app => {
     
 
-    // app.use((req, res, next) => {
-    //     res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-    //     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    //     next();
-    // })
-
     app.use(cors(corsOptions))
 
     app.use(express.json(), passport.initialize())
@@ -43,6 +37,15 @@ module.exports = app => {
 
     app.route('/emailcadastrado')
         .get(UsuarioController.emailCadastrado)
+    
+    app.route('/recuperarsenha')
+        .post(UsuarioController.recuperarSenha)
+
+    app.route('/recuperarsenha/codigo')
+        .post(UsuarioController.verificarCodigoSenha)
+    
+    app.route('/recuperarsenha/senha')
+        .post(UsuarioController.atualizarSenhaComCodigo)
 
     app.route('/habilidades')
         .all(MiddlewaresAutenticacao.bearer)

@@ -10,7 +10,7 @@ class MiddlewaresAutenticacao {
             (erro, usuario, info) => {
 
                 if(erro){
-                    if (erro.message == 'Usuario não encontrado' || erro.message == 'Email e/ou senha inválidos.'){
+                    if (erro.message == 'Usuario não encontrado.' || erro.message == 'Email e/ou senha inválidos.'){
                         return res.status(401).json({erro: erro.message})
                     }else {
                         return res.status(500).json({erro: erro.message});
@@ -32,8 +32,12 @@ class MiddlewaresAutenticacao {
             {session: false},
             (erro, usuario, info) => {
 
+                console.log(erro)
+
                 if(erro && erro.name === 'JsonWebTokenError'){
                     return res.status(401).json({erro: erro.message})
+                }else if(erro && erro.message == 'Usuario não encontrado.'){
+                    return res.status(404).json({erro: erro.message})
                 }else if(erro){
                     return res.status(500).json({erro: erro.message})
                 }
