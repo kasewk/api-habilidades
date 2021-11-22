@@ -1,5 +1,6 @@
 const database = require('../../database/models');
 const Helpers = require('../helpers/Helpers');
+const LogsController = require('./LogsController');
 
 class HabilidadeController {
 
@@ -15,7 +16,10 @@ class HabilidadeController {
         try {
             Helpers.verificaHabilidadeCorreta(novaHabilidade)
             await database.habilidades.create(novaHabilidade)
-                .then(habilidade => res.status(200).json(habilidade))
+                .then(habilidade => {
+                    res.status(200).json(habilidade)
+                    LogsController.novaHabilidade(req.user, habilidade)
+                })
                 .catch(err => res.status(500).json(err.message))
             
         } catch (err) {

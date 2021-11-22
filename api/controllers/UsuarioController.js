@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const geraToken = require('../auth/token');
 const { v4: uuidv4 } = require('uuid');
 const enviaEmail = require('../email/Email');
+const LogsController = require('./LogsController');
 
 class UsuarioController {
 
@@ -100,7 +101,10 @@ class UsuarioController {
             let salt = await bcrypt.genSalt();
             await bcrypt.hash(senha, salt).then(senhaHash => usuario.senha = senhaHash)
             await database.usuarios.create(usuario)
-                .then(user => res.status(204).send())
+                .then(user => {
+                    res.status(204).send()
+                    LogsController.novoUsuario(user)
+                })
                 .catch(err => res.status(500).json(err))
             
         } catch (err) {
@@ -167,7 +171,10 @@ class UsuarioController {
                 usuario.senha = senhaHash;
                 usuario.codigo_temp = null;
                 await usuario.save({fields: ['senha', 'codigo_temp']})
-                    .then(() => res.status(204).json())
+                    .then(() => {
+                        res.status(204).json()
+                        LogsController.recuperarSenha(req.user)
+                    })
                     .catch(err => res.status(500).json(err))
 
             }).catch(err => res.status(500).json())
@@ -190,6 +197,7 @@ class UsuarioController {
         const token = geraToken(req.user);
         res.set('Authorization', token);
         res.status(204).send();
+        LogsController.login(req.user)
     }
 
     async getUserHabilidades(id) {

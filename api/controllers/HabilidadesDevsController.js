@@ -1,5 +1,6 @@
 const database = require('../../database/models');
 const { isNull, verificaHabilidadeDevCorreta } = require('../helpers/Helpers');
+const LogsController = require('./LogsController');
 
 class HabilidadeController {
 
@@ -12,7 +13,6 @@ class HabilidadeController {
     async getHabilidadeDevPorId(req, res) {
 
         try {
-            // const dev = await database.habilidades_devs.findAll({where: {id_dev: parseInt(req.params.id)}});
             const dev = await database.habilidades_devs.findAll({
                 where: {id_dev: parseInt(req.params.id)}, 
                 include: [
@@ -20,8 +20,6 @@ class HabilidadeController {
                     {model: database.habilidades}
                 ],
                 order: [
-                  // ...we use the same syntax from the include
-                  // in the beginning of the order array
                   ['nivel', 'DESC'],
                   [database.habilidades, 'nome', 'ASC']
                 ]
@@ -78,7 +76,10 @@ class HabilidadeController {
             let possuiHabilidade = await database.habilidades_devs.findOne({where: {id_dev: habilidade.id_dev, id_habilidade: habilidade.id_habilidade }})
             isNull(!possuiHabilidade, 'O Usuário já possui esta habilidade.')
             await database.habilidades_devs.create(habilidade)
-                .then(habilidade => res.status(200).json(habilidade))
+                .then(habilidade => {
+                    res.status(200).json(habilidade)
+                    LogsController.vincularHabilidade(req.user, habilidade)
+                })
                 .catch(err => res.status(500).json(err.message))
         } catch (err) {
             res.status(400).json({erro: err.message})
@@ -99,7 +100,10 @@ class HabilidadeController {
         }
 
         await database.habilidades_devs.destroy({where: {id_dev: idDev, id_habilidade: idHabilidade}})
-            .then(() => res.status(204).send())
+            .then(() => {
+                res.status(204).send()
+                LogsController.desvincularHabilidade(req.user)
+            })
             .catch(err => res.status(500).json(err.message))
     }
 
