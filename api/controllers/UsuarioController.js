@@ -43,7 +43,6 @@ class UsuarioController {
             
             await database.usuarios.findAll({order: [['nome', 'ASC']]})
                 .then(users => {
-                    console.log(users)
                     arrayUsers = users.map(async user => {
                         let hab = await this.getUserHabilidades(user.id)
                         return {
@@ -206,12 +205,11 @@ class UsuarioController {
         await database.sequelize.query(`
             SELECT b.nome FROM habilidades b
             JOIN habilidades_devs a ON a.id_habilidade = b.id
-            WHERE a.id_dev = ${id}
+            WHERE a.id_dev = ${id} and (b.deletedAt IS NULL and a.deletedAt IS NULL)
             ORDER BY a.nivel DESC, b.nome;`,
             { type: database.sequelize.QueryTypes.SELECT })
             .then(resultadoHabilidades => habilidades = resultadoHabilidades)
             .catch(err => console.log("Erro ao buscar habilidades"))
-
         return habilidades.map(habilidade => habilidade.nome)
     }
 

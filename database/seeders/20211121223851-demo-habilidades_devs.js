@@ -18,147 +18,168 @@ module.exports = {
         id_habilidade: 1,
         id_dev: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 3,
         id_habilidade: 1,
         id_dev: 2,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 2,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 2,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 3,
         id_habilidade: 1,
         id_dev: 3,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 3,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 3,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 3,
         id_habilidade: 1,
         id_dev: 6,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 6,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 6,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 3,
         id_habilidade: 1,
         id_dev: 4,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 4,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 4,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 3,
         id_habilidade: 1,
         id_dev: 9,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 9,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 9,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 3,
         id_habilidade: 1,
         id_dev: 10,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 2,
         id_habilidade: 4,
         id_dev: 10,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       {
         nivel: 5,
         id_habilidade: 7,
         id_dev: 10,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
+        deletedAt: null
       },
       
     ], {})

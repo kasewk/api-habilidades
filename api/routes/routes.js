@@ -17,6 +17,20 @@ module.exports = app => {
 
     app.use(express.json(), passport.initialize())
 
+    app.route('/emailcadastrado')
+        .get(UsuarioController.emailCadastrado)
+
+    app.route('/recuperarsenha')
+        .post(UsuarioController.recuperarSenha)
+
+    app.route('/recuperarsenha/codigo')
+        .post(UsuarioController.verificarCodigoSenha)
+
+    app.route('/recuperarsenha/senha')
+        .post(UsuarioController.atualizarSenhaComCodigo)
+
+
+
     app.route('/usuarios/login')
         .post(MiddlewaresAutenticacao.local, UsuarioController.login)
 
@@ -35,22 +49,15 @@ module.exports = app => {
         .all(MiddlewaresAutenticacao.bearer)
         .delete(HabilidadesDevsController.deletaHabilidadeDev)
 
-    app.route('/emailcadastrado')
-        .get(UsuarioController.emailCadastrado)
-    
-    app.route('/recuperarsenha')
-        .post(UsuarioController.recuperarSenha)
-
-    app.route('/recuperarsenha/codigo')
-        .post(UsuarioController.verificarCodigoSenha)
-    
-    app.route('/recuperarsenha/senha')
-        .post(UsuarioController.atualizarSenhaComCodigo)
-
     app.route('/habilidades')
         .all(MiddlewaresAutenticacao.bearer)
         .get(HabilidadesController.getHabilidades)
         .post(HabilidadesController.criarHabilidade)
+
+    app.route('/habilidades/:id')
+        .all(MiddlewaresAutenticacao.bearer)
+        .put(HabilidadesController.editarHabilidade)
+        .delete(HabilidadesController.deletarHabilidade)
     
     app.route('/habilidades/devs')
         .all(MiddlewaresAutenticacao.bearer)

@@ -27,6 +27,28 @@ class HabilidadeController {
         }
     }
 
+    async editarHabilidade(req, res){
+        const habilidadeId = req.params.id;
+        const habilidade = {...req.body};
+
+        await database.habilidades.update(habilidade, {where: {id: habilidadeId}})
+            .then(() => res.status(204).json())
+            .catch(err => res.status(500).json(err))
+    }
+
+    async deletarHabilidade(req, res){
+        const habilidadeId = req.params.id;
+
+        if(req.user.role !== 'gestor'){
+            res.status(401).json({erro: "Não Autorizado"})
+            return;
+        }
+        
+        await database.habilidades.destroy({where: {id: habilidadeId}})
+            .then(() => res.status(204).json())
+            .catch(err => res.status(500).json())
+    }
+
 }
 
 
