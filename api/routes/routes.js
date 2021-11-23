@@ -56,6 +56,7 @@ module.exports = app => {
 
     app.route('/habilidades/:id')
         .all(MiddlewaresAutenticacao.bearer)
+        .get(HabilidadesController.getHabilidadePorId)
         .put(HabilidadesController.editarHabilidade)
         .delete(HabilidadesController.deletarHabilidade)
     

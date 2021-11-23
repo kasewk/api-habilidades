@@ -10,6 +10,13 @@ class HabilidadeController {
             .catch(err => res.status(500).json(err.message))
     }
 
+    async getHabilidadePorId(req, res){
+        const habilidadeId = req.params.id;
+        await database.habilidades.findOne({where: {id: habilidadeId}})
+            .then(habilidade => res.status(200).json(habilidade))
+            .catch(err => res.status(500).json(err))
+    }
+
     async criarHabilidade(req, res){
         const novaHabilidade = {...req.body}
 
