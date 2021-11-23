@@ -22,8 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     nivel: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'habilidades_devs',
-    paranoid: true
+    modelName: 'habilidades_devs'
   });
   return habilidades_devs;
 };

@@ -4,7 +4,8 @@ const HabilidadesDevsController = require('../controllers/HabilidadesDevsControl
 const UsuarioController = require('../controllers/UsuarioController');
 const MiddlewaresAutenticacao = require('../auth/MiddlewaresAutenticacao.js');
 const passport = require('passport');
-const cors = require('cors')
+const cors = require('cors');
+const LogsController = require('../controllers/LogsController');
 
 const corsOptions = {
     exposedHeaders: ['Authorization']
@@ -63,6 +64,10 @@ module.exports = app => {
     app.route('/habilidades/devs')
         .all(MiddlewaresAutenticacao.bearer)
         .get(HabilidadesDevsController.getHabilidadesDevs)
+    
+    app.route('/logs')
+        .all(MiddlewaresAutenticacao.bearer)
+        .get(LogsController.getLogs)
 
 
 }

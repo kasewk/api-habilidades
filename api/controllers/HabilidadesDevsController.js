@@ -55,7 +55,8 @@ class HabilidadeController {
                             return {
                                 nivel,
                                 nome: habilidade.nome,
-                                descricao: habilidade.descricao
+                                descricao: habilidade.descricao,
+                                id: habilidade.id
                             }
                         }
                     })
