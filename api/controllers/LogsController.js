@@ -20,6 +20,8 @@ class LogsControler {
                         tipo: log.tipo,
                         tabela: log.tabela,
                         id_changed: log.id_changed,
+                        createdAt: log.createdAt,
+                        updatedAt: log.updatedAt,
                         usuario: {
                             id: log.usuario.id,
                             nome: log.usuario.nome,
@@ -95,7 +97,8 @@ class LogsControler {
         database.logs.create(logLogin)
     }
 
-    async logout(user){
+    async logout(req, res){
+        const user = req.user;
         const logLogout = {
             id_user: user.id,
             tipo: 'Logout',
@@ -103,6 +106,7 @@ class LogsControler {
             id_changed: null
         }
         database.logs.create(logLogout)
+        res.status(200).json()
     }
 
 }

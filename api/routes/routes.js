@@ -30,8 +30,6 @@ module.exports = app => {
     app.route('/recuperarsenha/senha')
         .post(UsuarioController.atualizarSenhaComCodigo)
 
-
-
     app.route('/usuarios/login')
         .post(MiddlewaresAutenticacao.local, UsuarioController.login)
 
@@ -68,6 +66,10 @@ module.exports = app => {
     app.route('/logs')
         .all(MiddlewaresAutenticacao.bearer)
         .get(LogsController.getLogs)
+    
+    app.route('/logs/logout')
+        .all(MiddlewaresAutenticacao.bearer)
+        .post(LogsController.logOut)
 
 
 }
