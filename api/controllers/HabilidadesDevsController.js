@@ -51,15 +51,18 @@ class HabilidadeController {
                 email: dev[0].usuario.email,
                 habilidades: 
                     dev.map(({habilidade, nivel}) => {
-                        return {
-                            nivel,
-                            nome: habilidade.nome,
-                            descricao: habilidade.descricao
+                        if(habilidade){
+                            return {
+                                nivel,
+                                nome: habilidade.nome,
+                                descricao: habilidade.descricao
+                            }
                         }
                     })
                 
             }
             delete devFormatado.senha
+            devFormatado.habilidades = devFormatado.habilidades.filter(item => item != null)
             res.status(200).json(devFormatado);
         } catch (err) {
             res.status(500).json({ erro: err.message })
