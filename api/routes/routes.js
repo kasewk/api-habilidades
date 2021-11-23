@@ -69,7 +69,7 @@ module.exports = app => {
     
     app.route('/logs/logout')
         .all(MiddlewaresAutenticacao.bearer)
-        .post(LogsController.logOut)
+        .post(LogsController.logout)
 
 
 }
