@@ -5,7 +5,8 @@ module.exports = usuario => {
         id: usuario.id,
         role: usuario.role,
         cargo: usuario.cargo,
-        nome: usuario.nome
+        nome: usuario.nome,
+        photo_url: usuario.photo_url
     };
 
     const token = jwt.sign(payload, process.env.CHAVE_JWT);

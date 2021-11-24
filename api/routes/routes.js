@@ -11,12 +11,12 @@ const corsOptions = {
     exposedHeaders: ['Authorization']
 };
 
-module.exports = app => {
+module.exports = (app, upload, express) => {
     
 
     app.use(cors(corsOptions))
 
-    app.use(express.json(), passport.initialize())
+    app.use(express.json(), express.urlencoded({extended: true}), passport.initialize())
 
     app.route('/emailcadastrado')
         .get(UsuarioController.emailCadastrado)
@@ -35,7 +35,10 @@ module.exports = app => {
 
     app.route('/usuarios')
         .get(MiddlewaresAutenticacao.bearer, UsuarioController.getUsuarios)
+        .put(MiddlewaresAutenticacao.bearer, upload.single('avatar'), UsuarioController.uploadPhoto)
         .post(UsuarioController.criarUsuario)
+
+    app.use('/usuarios/photo', express.static('/home/paulo/codeProjects/wise/projeto2/api-habilidades/uploads'))
 
     app.post('/usuarios/gestor', UsuarioController.criarUsuario)
 

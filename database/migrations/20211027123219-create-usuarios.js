@@ -24,6 +24,9 @@ module.exports = {
       role: {
         type: Sequelize.ENUM('dev', 'gestor')
       },
+      photo_url: {
+        type: Sequelize.STRING
+      },
       codigo_temp: {
         type: Sequelize.STRING
       },

@@ -20,6 +20,7 @@ module.exports = {
         cargo: "Desenvolvedor Java Sênior",
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
+        photo_url: null,
         codigo_temp: null,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -31,6 +32,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -41,6 +43,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -51,6 +54,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -61,6 +65,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -71,6 +76,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -81,6 +87,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -91,6 +98,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -101,6 +109,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -111,6 +120,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -121,6 +131,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -131,6 +142,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "dev",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -141,6 +153,7 @@ module.exports = {
         senha: '$2b$10$oa1pvwaQFW3AVWUW.P2TEen5Gmc7HhiVgBv9UGUddX9sHvP/N5ExW',
         role: "gestor",
         codigo_temp: null,
+        photo_url: null,
         createdAt: new Date(),
         updatedAt: new Date()
       }

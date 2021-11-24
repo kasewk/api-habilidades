@@ -29,7 +29,7 @@ class HabilidadeController {
             try {
                 isNull(dev, "Usuario não encontrado ou não possui habilidades.");
             } catch (error) {
-                await database.usuarios.findOne({where: {id: req.params.id}, attributes: ['id', 'cargo', 'nome', 'email']})
+                await database.usuarios.findOne({where: {id: req.params.id}, attributes: ['id', 'cargo', 'nome', 'email', 'photo_url']})
                     .then(user => {
                         console.log(user)
                         res.status(206).json({
@@ -37,6 +37,7 @@ class HabilidadeController {
                             cargo: user.cargo,
                             nome: user.nome,
                             email: user.email,
+                            photo_url: user.photo_url,
                             habilidades: []
                         })
                     }).catch(err => res.status(500).json())
@@ -49,6 +50,7 @@ class HabilidadeController {
                 nome: dev[0].usuario.nome,
                 cargo: dev[0].usuario.cargo,
                 email: dev[0].usuario.email,
+                photo_url: dev[0].usuario.photo_url,
                 habilidades: 
                     dev.map(({habilidade, nivel}) => {
                         if(habilidade){

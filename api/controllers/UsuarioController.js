@@ -6,6 +6,7 @@ const geraToken = require('../auth/token');
 const { v4: uuidv4 } = require('uuid');
 const enviaEmail = require('../email/Email');
 const LogsController = require('./LogsController');
+const path = require('path');
 
 class UsuarioController {
 
@@ -79,6 +80,7 @@ class UsuarioController {
                         userObj.nome = user.nome;
                         userObj.cargo = user.cargo;
                         userObj.role = user.role;
+                        userObj.photo_url = user.photo_url;
                 }).catch(err => res.status(500).json(err.message))
     
             userObj.habilidades = await this.getUserHabilidades(idDev);
@@ -216,6 +218,16 @@ class UsuarioController {
     async criptografaSenha(senha){
         let salt = await bcrypt.genSalt();
         return await bcrypt.hash(senha, salt)
+    }
+
+    async uploadPhoto(req, res){
+
+        const pathPhoto = req.file.path.split('/')[1]
+        const idUser = req.user.id;
+        
+        await database.usuarios.update({photo_url: pathPhoto}, {where: {id: idUser}})
+            .then(() => res.sendStatus(204))
+            .catch(err => res.sendStatus(401))
     }
 
 }
