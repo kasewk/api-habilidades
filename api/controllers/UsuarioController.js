@@ -123,7 +123,7 @@ class UsuarioController {
                     res.status(200).json({ emailCadastrado: false })
                 }
             })
-            .catch(err => res.status(500).json({emailCadastrado: false}))
+            .catch(err => res.status(500).json(err))
     }
 
     async recuperarSenha(req, res){
@@ -131,11 +131,15 @@ class UsuarioController {
 
         await database.usuarios.findOne({where: {email}})
             .then(async usuario => {
-                res.status(204).json();
-                const codigo = uuidv4().split('-')[0];
-                usuario.codigo_temp = codigo;
-                usuario.save({fields: ['codigo_temp']}).catch(console.log)
-                enviaEmail(usuario.email, usuario.codigo_temp).catch(console.log)
+                if(usuario){
+                    res.status(204).json();
+                    const codigo = uuidv4().split('-')[0];
+                    usuario.codigo_temp = codigo;
+                    usuario.save({fields: ['codigo_temp']}).catch(console.log)
+                    enviaEmail(usuario.email, usuario.codigo_temp).catch(console.log)
+                }else{
+                    res.sendStatus(404).end();
+                }
             })
             .catch(err => res.status(500).json(err))
 
