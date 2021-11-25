@@ -13,6 +13,7 @@ API desenvolvida com expressa no NodeJS de um catálogo de habilidades
   `npx sequelize-cli db:migrate`
 - Também na pasta do projeto rode o comando abaixo para popular o banco<br>
   `npx sequelize-cli db:seed:all`
+- Crie uma pasta chamada uploads na raiz do projeto, onde que vão ser armazenadas as imagens de perfil
 
 
 ## Tecnologias utilizadas:
