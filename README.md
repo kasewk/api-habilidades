@@ -1,5 +1,5 @@
 # API Habilidades
-API de um catálogo de habilidades
+API desenvolvida com expressa no NodeJS de um catálogo de habilidades
 
 
 ## Para instalar a aplicação em sua maquina siga os passos:
@@ -13,3 +13,9 @@ API de um catálogo de habilidades
 > npx sequelize-cli db:migrate
 - Também na pasta do projeto rode o comando abaixo para popular o banco
 > npx sequelize-cli db:seed:all
+
+
+## Tecnologias utilizadas:
+- Javascript
+- NodeJS
+- Express
