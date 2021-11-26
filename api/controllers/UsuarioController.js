@@ -178,7 +178,8 @@ class UsuarioController {
                 await usuario.save({fields: ['senha', 'codigo_temp']})
                     .then(() => {
                         res.status(204).json()
-                        LogsController.recuperarSenha(req.user)
+                        console.log(usuario)
+                        LogsController.recuperarSenha(usuario)
                     })
                     .catch(err => res.status(500).json(err))
 

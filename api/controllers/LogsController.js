@@ -80,7 +80,7 @@ class LogsControler {
     async recuperarSenha(user){
         const logRecuperarSenha = {
             id_user: user.id,
-            tipo: 'recuperarSenha',
+            tipo: 'Recuperar Senha',
             tabela: 'usuarios',
             id_changed: user.id
         }
