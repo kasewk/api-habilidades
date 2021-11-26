@@ -20,3 +20,5 @@ API desenvolvida com expressa no NodeJS de um catálogo de habilidades
 - Javascript
 - NodeJS
 - Express
+- Sequelize
+- MySQL
