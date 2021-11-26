@@ -136,7 +136,7 @@ class UsuarioController {
                     const codigo = uuidv4().split('-')[0];
                     usuario.codigo_temp = codigo;
                     usuario.save({fields: ['codigo_temp']}).catch(console.log)
-                    enviaEmail(usuario.email, usuario.codigo_temp).catch(console.log)
+                    enviaEmail(usuario.email, usuario.codigo_temp, usuario.nome).catch(console.log)
                 }else{
                     res.sendStatus(404).end();
                 }

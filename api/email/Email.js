@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 
-async function enviaEmail(email, codigo){
+async function enviaEmail(email, codigo, nome){
 
     let contaTeste = await nodemailer.createTestAccount();
 
@@ -17,8 +17,8 @@ async function enviaEmail(email, codigo){
         from: '"Catálogo de habilidades" <noreply@catalogo.com>',
         to: email,
         subject: "Email de Recuperação de senha",
-        text: `Olá, Código para recuperação de senha: ${codigo}`,
-        html: `<h1>Olá,</h1><br> <p>Código para recuperação de senha: ${codigo}</p>`
+        text: `Olá, ${nome} Código para recuperação de senha: ${codigo}`,
+        html: `<h1>Olá, ${nome}</h1><br> <p>Código para recuperação de senha: ${codigo}</p>`
     })
 
     console.log("Mensagem enviada: " + info.messageId);
