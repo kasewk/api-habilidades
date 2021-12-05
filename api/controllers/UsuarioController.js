@@ -52,6 +52,7 @@ class UsuarioController {
                             cargo: user.cargo,
                             role: user.role,
                             email: user.email,
+                            photo_url: user.photo_url,
                             habilidades: hab
                         }
                     })
@@ -201,8 +202,17 @@ class UsuarioController {
 
     login(req, res) {
         const token = geraToken(req.user);
+        const user = {
+            nome: req.user.nome,
+            id: req.user.id,
+            photo_url: req.user.photo_url,
+            role: req.user.role,
+            email: req.user.email,
+            cargo: req.user.cargo
+        }
+        
         res.set('Authorization', token);
-        res.status(204).send();
+        res.status(200).json(user);
         LogsController.login(req.user)
     }
 
