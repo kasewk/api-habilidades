@@ -3,7 +3,6 @@ const database = require('../../database/models')
 class LogsControler {
 
     async getLogs(req, res){
-        console.log("GET Logs chamado")
 
         if(req.user.role !== 'gestor'){
             res.status(401).json({erro: 'Não Autorizado'})
@@ -12,7 +11,6 @@ class LogsControler {
 
         await database.logs.findAll({include: database.usuarios, order: [['createdAt', 'DESC']]})
             .then(logs => {
-                console.log("LOGS")
                 let logsFormatado = logs.map(log => {
                     return {
                         id: log.id,
@@ -31,7 +29,6 @@ class LogsControler {
                         }
                     }
                 })
-                console.log(logsFormatado)
                 res.status(200).json(logsFormatado)
             })
             .catch(err => res.status(500).json(err))

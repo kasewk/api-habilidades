@@ -31,7 +31,6 @@ class HabilidadeController {
             } catch (error) {
                 await database.usuarios.findOne({where: {id: req.params.id}, attributes: ['id', 'cargo', 'nome', 'email', 'photo_url']})
                     .then(user => {
-                        console.log(user)
                         res.status(206).json({
                             id: user.id,
                             cargo: user.cargo,
